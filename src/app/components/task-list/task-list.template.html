@@ -1,0 +1,24 @@
+<div class="list-items">
+  <div *ngIf="loading;else taskList">
+    <div *ngFor="let i of [1,2,3,4,5,6]" class="loading-item">
+      <span class="glow-checkbox"></span>
+      <span class="glow-text"
+        ><span>Loading</span> <span>cool</span> <span>state</span></span
+      >
+    </div>
+  </div>
+  <div *ngIf="!loading && tasksInOrder.length === 0" class="wrapper-message">
+    <span class="icon-check"></span>
+    <div class="title-message">You have no pending tasks</div>
+    <div class="subtitle-message">Sit back and relax!!</div>
+  </div>
+  <ng-template #taskList>
+    <app-simple-task
+      *ngFor="let task of tasksInOrder"
+      [task]="task"
+      (onArchiveTask)="onArchiveTask.emit($event)"
+      (onPinTask)="onPinTask.emit($event)"
+    >
+    </app-simple-task>
+  </ng-template>
+</div>
